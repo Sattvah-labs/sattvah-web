@@ -5,9 +5,9 @@
 @layer base {
   :root {
     /* Calm, warm palette tuned for mental-health context.
-       background: warm off-white (slight peach undertone) — feels supportive, not clinical.
+       background: warm off-white (slight peach undertone), feels supportive, not clinical.
        primary: deep slate (used for text + primary CTAs).
-       accent: soft amber (warm, encouraging — used sparingly for emphasis). */
+       accent: soft amber (warm, encouraging, used sparingly for emphasis). */
     --background: 36 33% 98%;            /* #FBF8F4 */
     --foreground: 215 28% 17%;           /* #1E293B deep slate */
 
@@ -97,7 +97,7 @@
     text-wrap: balance;
   }
 
-  /* Aurora-like hero mesh — multiple soft radial gradients overlap
+  /* Aurora-like hero mesh, multiple soft radial gradients overlap
      to give depth without imagery. Animated slowly so the page
      feels alive without being noisy. */
   .bg-aurora {
@@ -115,7 +115,7 @@
     animation: aurora-shift 24s ease-in-out infinite;
   }
 
-  /* Section dividers — deep slate band for the "built for scale" tech
+  /* Section dividers, deep slate band for the "built for scale" tech
      band that punctuates the warm palette. */
   .bg-deep-slate {
     background-color: hsl(215 28% 11%);
@@ -124,7 +124,7 @@
       radial-gradient(60% 50% at 100% 100%, hsl(215 92% 58% / 0.06) 0%, transparent 50%);
   }
 
-  /* Subtle dot pattern — overlays behind sections that need texture
+  /* Subtle dot pattern, overlays behind sections that need texture
      without imagery. Pure CSS so no bundle cost. */
   .bg-dot-pattern {
     background-image: radial-gradient(hsl(215 16% 80%) 1px, transparent 1px);
@@ -153,7 +153,7 @@
   .float-slow { animation: float 8s ease-in-out infinite; }
   .float-slower { animation: float 12s ease-in-out infinite 2s; }
 
-  /* Big number — used in stat bands. Tight tracking, balanced. */
+  /* Big number, used in stat bands. Tight tracking, balanced. */
   .stat-num {
     font-feature-settings: "tnum" 1, "ss01" 1;
     font-variant-numeric: tabular-nums;

@@ -60,7 +60,7 @@ function EmptyState() {
   return (
     <Card className="max-w-xl">
       <CardContent className="pt-6 space-y-3">
-        <h3 className="font-semibold">Nothing here yet — or the feed couldn&rsquo;t load.</h3>
+        <h3 className="font-semibold">Nothing here yet, or the feed couldn&rsquo;t load.</h3>
         <p className="text-sm text-muted-foreground">
           The community lives mostly in the mobile app. Open Sattvah to see the latest, post your own,
           and reply to others.

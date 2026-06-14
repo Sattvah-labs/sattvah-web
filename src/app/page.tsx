@@ -38,7 +38,7 @@ export default function LandingPage() {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// HERO — the entire page lives or dies on the first 600px
+// HERO, the entire page lives or dies on the first 600px
 // ────────────────────────────────────────────────────────────────────────
 
 function Hero() {
@@ -67,7 +67,7 @@ function Hero() {
           </span>.
         </h1>
 
-        {/* "Let's talk." — under the title, big, prominent */}
+        {/* "Let's talk.", under the title, big, prominent */}
         <p className="mt-9 md:mt-12 text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight">
           Let&rsquo;s talk.
         </p>
@@ -105,13 +105,13 @@ function Hero() {
         </p>
       </div>
 
-      {/* Floating proof chips — three soft cards that hint at depth without
+      {/* Floating proof chips, three soft cards that hint at depth without
           dominating the hero. */}
       <div className="container relative z-10 pb-20 md:pb-28 hidden md:grid grid-cols-3 gap-4 max-w-5xl">
         <ProofChip
           icon={Waves}
           title="Live in 30 seconds"
-          body="Open the app. Type what's on your mind. Sattvah listens — no forms, no questionnaires."
+          body="Open the app. Type what's on your mind. Sattvah listens, no forms, no questionnaires."
         />
         <ProofChip
           icon={Brain}
@@ -158,7 +158,7 @@ function ProofChip({
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// CRISIS — the why. Stat-driven, brutal numbers, India-first framing.
+// CRISIS, the why. Stat-driven, brutal numbers, India-first framing.
 // ────────────────────────────────────────────────────────────────────────
 
 function Crisis() {
@@ -178,13 +178,13 @@ function Crisis() {
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
           <StatTile value="197M" sub="Indians with mental-health needs" />
           <StatTile value="70-92%" sub="Never get any support at all" />
-          <StatTile value="₹2,000" sub="A single therapy session — for most, out of reach" />
+          <StatTile value="₹2,000" sub="A single therapy session, for most, out of reach" />
           <StatTile value="< 1" sub="Mental health professionals per 100K people" />
         </div>
 
         <p className="mt-12 text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
           Stigma. Cost. Access. None of these are AI problems. But the answer
-          starts with someone — or something — that listens without judgment,
+          starts with someone, or something, that listens without judgment,
           at 2 AM, in your language, every single time you come back. That
           piece, we can build. We are.
         </p>
@@ -205,7 +205,7 @@ function StatTile({ value, sub }: { value: string; sub: string }) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// PILLARS — what we're building. Bento grid, 6 surfaces.
+// PILLARS, what we're building. Bento grid, 6 surfaces.
 // ────────────────────────────────────────────────────────────────────────
 
 function Pillars() {
@@ -225,15 +225,15 @@ function Pillars() {
         </p>
       </div>
 
-      {/* Bento grid — asymmetric, premium */}
+      {/* Bento grid, asymmetric, premium */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-        {/* Big tile — AI listener */}
+        {/* Big tile, AI listener */}
         <BentoTile
           className="md:col-span-2 md:row-span-2"
           icon={MessageSquare}
           eyebrow="The Listener"
           title="An AI that hears the nuance you'd miss in yourself."
-          body="Tell it 'I got the promotion but I'm dreading telling my partner.' It doesn't collapse you to 'mixed.' It catches torn, anxious-proud — and replies like a person who's actually with you."
+          body="Tell it 'I got the promotion but I'm dreading telling my partner.' It doesn't collapse you to 'mixed.' It catches torn, anxious-proud, and replies like a person who's actually with you."
           tags={["Free-text emotion", "Valence + arousal", "Trajectory arc", "Cross-session memory"]}
           tall
         />
@@ -249,7 +249,7 @@ function Pillars() {
           icon={Heart}
           eyebrow="Mood"
           title="Track your inner weather."
-          body="Daily check-ins. See your patterns. Activity correlations. Slow, honest data — not productivity theater."
+          body="Daily check-ins. See your patterns. Activity correlations. Slow, honest data, not productivity theater."
         />
 
         <BentoTile
@@ -334,7 +334,7 @@ function BentoTile({
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// ENGINE — technical depth. Three layered pillars.
+// ENGINE, technical depth. Three layered pillars.
 // ────────────────────────────────────────────────────────────────────────
 
 function Engine() {
@@ -379,7 +379,7 @@ function Engine() {
             sub="Long-term memory that compounds"
             bullets={[
               "Semantic recall via pgvector (1536-dim embeddings)",
-              "Rolling summary every N turns — auto-refreshed",
+              "Rolling summary every N turns, auto-refreshed",
               "Trajectory arc: improving / spiraling / stuck / cycling",
               "Pure-ephemeral Incognito mode for the hardest turns",
             ]}
@@ -392,17 +392,17 @@ function Engine() {
             bullets={[
               "Reply auto-graded across warmth, specificity, reflection",
               "Per-tenant persona, hot-swappable without redeploys",
-              "Proprietary training corpus — competitors can't copy",
+              "Proprietary training corpus, competitors can't copy",
               "Deterministic safety floor; LLM is the backup, not the source",
             ]}
           />
         </div>
 
-        {/* The tagline footer — the moat sentence */}
+        {/* The tagline footer, the moat sentence */}
         <div className="mt-16 md:mt-20 rounded-3xl border border-border bg-card p-8 md:p-12 max-w-4xl mx-auto">
           <p className="text-xl md:text-2xl leading-snug tracking-tight text-center text-balance">
             Memory compounds switching cost. Safety is deterministic, not vibes.
-            Persona is config, not fork. Built tenant-aware from day one —{" "}
+            Persona is config, not fork. Built tenant-aware from day one , {" "}
             <span className="text-muted-foreground">
               the same engine that powers our app today is the SaaS API
               tomorrow, with no rewrite.
@@ -450,7 +450,7 @@ function EnginePillar({
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// BUILT FOR SCALE — technical credibility. Dark band, code aesthetic.
+// BUILT FOR SCALE, technical credibility. Dark band, code aesthetic.
 // ────────────────────────────────────────────────────────────────────────
 
 function Builtforscale() {
@@ -517,7 +517,7 @@ function Builtforscale() {
           />
         </div>
 
-        {/* The stack — terminal aesthetic */}
+        {/* The stack, terminal aesthetic */}
         <div className="mt-16 rounded-2xl border border-white/10 bg-black/40 p-6 md:p-8 max-w-4xl mx-auto font-mono-tight">
           <div className="flex items-center gap-2 mb-4 text-white/40 text-xs">
             <span className="h-2 w-2 rounded-full bg-red-400/50" />
@@ -577,7 +577,7 @@ function ScaleCard({
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// CARE — trust + safety. Quiet, after the technical band.
+// CARE, trust + safety. Quiet, after the technical band.
 // ────────────────────────────────────────────────────────────────────────
 
 function CarePromise() {
@@ -630,7 +630,7 @@ function CarePromise() {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// FINAL CTA — the ask. Brief, beautiful, decisive.
+// FINAL CTA, the ask. Brief, beautiful, decisive.
 // ────────────────────────────────────────────────────────────────────────
 
 function FinalCTA() {
@@ -643,7 +643,7 @@ function FinalCTA() {
           that didn&rsquo;t exist before.
         </h2>
         <p className="mt-7 text-lg md:text-xl text-muted-foreground leading-relaxed text-balance">
-          The infrastructure for emotional support — at the scale of a billion
+          The infrastructure for emotional support, at the scale of a billion
           people. India first. Then the world. Be one of the first to use it.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">

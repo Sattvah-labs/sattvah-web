@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Find an expert",
   description:
-    "Browse Sattvah&rsquo;s vetted listeners and counsellors. Filter by area — burnout, grief, relationships, identity, anxiety — and book a session inside the app.",
+    "Browse Sattvah&rsquo;s vetted listeners and counsellors. Filter by area, burnout, grief, relationships, identity, anxiety, and book a session inside the app.",
 };
 
 export const revalidate = 120;

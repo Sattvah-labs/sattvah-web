@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 interface DeepLinkButtonProps {
-  /** Path inside the mobile app, e.g. "experts/abc/book" — no leading slash. */
+  /** Path inside the mobile app, e.g. "experts/abc/book", no leading slash. */
   path?: string;
   label?: string;
   showArrow?: boolean;

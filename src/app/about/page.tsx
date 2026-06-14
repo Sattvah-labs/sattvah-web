@@ -21,8 +21,8 @@ export default function AboutPage() {
       <div className="mt-8 space-y-6 text-[17px] leading-relaxed text-foreground/85">
         <p>
           Sattvah started from a simple observation: the moments people most need to be heard
-          rarely happen during business hours, and the existing options — a paid therapist
-          weeks out, a vague journaling app, the chaos of social media — leave a gap.
+          rarely happen during business hours, and the existing options, a paid therapist
+          weeks out, a vague journaling app, the chaos of social media, leave a gap.
         </p>
         <p>
           We wanted a place that&rsquo;s emotionally safer than a public feed, more
@@ -31,12 +31,12 @@ export default function AboutPage() {
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight">Two ways to use Sattvah</h2>
         <p>
-          <strong>Community</strong> — share what&rsquo;s heavy, anonymously or under your name.
-          Read what others are working through. Reactions are quiet by design — no like counts
+          <strong>Community</strong>, share what&rsquo;s heavy, anonymously or under your name.
+          Read what others are working through. Reactions are quiet by design, no like counts
           racing across the screen.
         </p>
         <p>
-          <strong>Experts</strong> — when you want more than peer support, book a session with
+          <strong>Experts</strong>, when you want more than peer support, book a session with
           a vetted listener or counsellor. Every expert is interviewed; we check
           credentials, not vibes.
         </p>
@@ -50,7 +50,7 @@ export default function AboutPage() {
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight">Privacy, simply</h2>
         <p>
-          Anonymous posts stay anonymous — the experts and other members never see your name.
+          Anonymous posts stay anonymous, the experts and other members never see your name.
           We don&rsquo;t sell your data. We don&rsquo;t train AI on private chats. See our{" "}
           <Link href="/privacy" className="underline underline-offset-4 hover:text-foreground">
             privacy policy

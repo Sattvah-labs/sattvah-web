@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getCommunityPost } from "@/lib/api";
 import { relativeTime, truncate } from "@/lib/utils";
 
-// Static export — Next.js requires at least one generated param to satisfy
+// Static export, Next.js requires at least one generated param to satisfy
 // `output: 'export'`. We seed a placeholder ID that renders a "post not
 // found" page. Once Sattvah has real community posts, swap this for a
 // call that fetches actual IDs from the API.
@@ -122,7 +122,7 @@ export default async function PostDetailPage({ params }: Params) {
           <Card>
             <CardContent className="pt-6">
               <p className="text-sm text-muted-foreground">
-                Replies live in the app — open Sattvah to see the conversation and add yours.
+                Replies live in the app, open Sattvah to see the conversation and add yours.
               </p>
               <div className="mt-4">
                 <DeepLinkButton

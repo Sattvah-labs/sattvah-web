@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Sattvah",
   tagline: "A quieter place to feel heard.",
   description:
-    "Sattvah is an emotional-support app and community where you can share what you're going through, read what others are working through, and book a session with a vetted listener — judgment-free.",
+    "Sattvah is an emotional-support app and community where you can share what you're going through, read what others are working through, and book a session with a vetted listener, judgment-free.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://sattvah.ai",
   apiBaseUrl:
     process.env.NEXT_PUBLIC_API_BASE_URL ||

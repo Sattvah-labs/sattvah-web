@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Sattvah collects, uses, and protects your data — written in plain English.",
+    "How Sattvah collects, uses, and protects your data, written in plain English.",
 };
 
 export default function PrivacyPage() {
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <h2>Data we collect</h2>
       <ul>
         <li>Account basics: email or phone (used for sign-in only), display name, optional date of birth.</li>
-        <li>Anything you post or message — stored encrypted at rest.</li>
+        <li>Anything you post or message, stored encrypted at rest.</li>
         <li>Standard product analytics (screen views, crash reports), with no advertising IDs.</li>
       </ul>
 
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
       <p>
         You can export or delete your account at any time from the app. Deleting wipes
         your messages from our systems within 30 days, except for content we&rsquo;re
-        legally required to retain (very rare — typically only when ordered by a court).
+        legally required to retain (very rare, typically only when ordered by a court).
       </p>
 
       <h2>Contact</h2>

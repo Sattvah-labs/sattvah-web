@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getExpert } from "@/lib/api";
 
-// Static export — same as community/posts/[id]: seed one placeholder ID
+// Static export, same as community/posts/[id]: seed one placeholder ID
 // to satisfy Next 14's `output: 'export'` requirement. Swap for a real
 // fetch once the experts catalog is seeded.
 export const dynamic = "force-static";
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description,
     openGraph: {
       type: "profile",
-      title: `${expert.name} — Sattvah expert`,
+      title: `${expert.name}, Sattvah expert`,
       description,
     },
   };
