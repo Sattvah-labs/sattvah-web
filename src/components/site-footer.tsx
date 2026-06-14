@@ -57,8 +57,8 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border/40">
         <div className="container py-5 flex flex-col-reverse gap-3 md:flex-row md:items-center md:justify-between text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Sattvah. All rights reserved.</p>
-          <p>Powered by Sattvah — emotional support that meets you where you are.</p>
+          <p>© {new Date().getFullYear()} Sattvah Labs. All rights reserved.</p>
+          <p>Powered by Sattvah Labs.</p>
         </div>
       </div>
     </footer>
