@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Calm, warm palette tuned for mental-health context.
+       background: warm off-white (slight peach undertone) — feels supportive, not clinical.
+       primary: deep slate (used for text + primary CTAs).
+       accent: soft amber (warm, encouraging — used sparingly for emphasis). */
+    --background: 36 33% 98%;            /* #FBF8F4 */
+    --foreground: 215 28% 17%;           /* #1E293B deep slate */
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 17%;
+
+    --primary: 215 28% 17%;              /* deep slate */
+    --primary-foreground: 36 33% 98%;
+
+    --secondary: 36 30% 94%;             /* warm cream */
+    --secondary-foreground: 215 28% 17%;
+
+    --muted: 36 20% 94%;
+    --muted-foreground: 215 16% 47%;     /* #64748B */
+
+    --accent: 36 92% 58%;                /* soft amber #F5A524 */
+    --accent-foreground: 215 28% 17%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 36 20% 90%;
+    --input: 36 20% 90%;
+    --ring: 36 92% 58%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 215 28% 9%;
+    --foreground: 36 33% 96%;
+
+    --card: 215 28% 12%;
+    --card-foreground: 36 33% 96%;
+
+    --popover: 215 28% 12%;
+    --popover-foreground: 36 33% 96%;
+
+    --primary: 36 33% 96%;
+    --primary-foreground: 215 28% 9%;
+
+    --secondary: 215 24% 18%;
+    --secondary-foreground: 36 33% 96%;
+
+    --muted: 215 24% 18%;
+    --muted-foreground: 215 16% 65%;
+
+    --accent: 36 92% 58%;
+    --accent-foreground: 215 28% 9%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 36 33% 96%;
+
+    --border: 215 24% 22%;
+    --input: 215 24% 22%;
+    --ring: 36 92% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
+}
+
+/* Subtle, warm "supportive" gradient used on hero + section dividers. */
+@layer utilities {
+  .bg-warm-radial {
+    background-image: radial-gradient(
+      120% 80% at 50% 0%,
+      hsl(36 92% 94%) 0%,
+      hsl(36 33% 98%) 55%,
+      hsl(36 33% 98%) 100%
+    );
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
