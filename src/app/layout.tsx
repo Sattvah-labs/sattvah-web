@@ -22,11 +22,12 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "emotional support",
-    "mental health",
+    "talk to someone",
     "anonymous community",
-    "online therapy",
+    "feel heard",
     "listener",
-    "wellbeing",
+    "Sattvah",
+    "Sattvah Labs",
   ],
   openGraph: {
     type: "website",
