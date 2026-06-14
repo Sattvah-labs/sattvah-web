@@ -10,7 +10,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getCommunityPost } from "@/lib/api";
 import { relativeTime, truncate } from "@/lib/utils";
 
-export const revalidate = 60;
+// Static export — Next.js requires at least one generated param to satisfy
+// `output: 'export'`. We seed a placeholder ID that renders a "post not
+// found" page. Once Sattvah has real community posts, swap this for a
+// call that fetches actual IDs from the API.
+export const dynamic = "force-static";
+export const dynamicParams = false;
+export async function generateStaticParams() {
+  return [{ id: "placeholder" }];
+}
 
 interface Params {
   params: { id: string };

@@ -15,7 +15,14 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getExpert } from "@/lib/api";
 
-export const revalidate = 120;
+// Static export — same as community/posts/[id]: seed one placeholder ID
+// to satisfy Next 14's `output: 'export'` requirement. Swap for a real
+// fetch once the experts catalog is seeded.
+export const dynamic = "force-static";
+export const dynamicParams = false;
+export async function generateStaticParams() {
+  return [{ id: "placeholder" }];
+}
 
 interface Params {
   params: { id: string };
