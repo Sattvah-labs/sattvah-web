@@ -42,7 +42,7 @@ export default function PrivacyPage() {
 
       <h2>Contact</h2>
       <p>
-        Privacy questions: <a href="mailto:privacy@sattvah.ai">privacy@sattvah.ai</a>.
+        Privacy questions: <a href="mailto:mano@sattvah.ai">mano@sattvah.ai</a>.
       </p>
     </div>
   );
