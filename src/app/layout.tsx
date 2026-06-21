@@ -46,10 +46,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/brand/mark.svg", type: "image/svg+xml" },
+      { url: "/brand/favicon.ico", sizes: "any" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    apple: [{ url: "/brand/apple-touch-icon.png", sizes: "180x180" }],
   },
   // Linked once in <head> so iOS Safari + Android Chrome both pick the
   // PWA manifest up. /talk is the canonical entry point but the

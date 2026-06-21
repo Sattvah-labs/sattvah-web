@@ -20,7 +20,7 @@ const PRECACHE = [
   "/talk",
   "/talk/",
   "/manifest.webmanifest",
-  "/favicon.svg",
+  "/brand/mark.svg",
 ];
 
 self.addEventListener("install", (event) => {

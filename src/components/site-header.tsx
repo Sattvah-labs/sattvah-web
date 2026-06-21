@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
-import { SattvahMark } from "@/components/sattvah-mark";
+import { BrandMark } from "@/components/brand-mark";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/site";
 import { useAuth } from "@/lib/auth-context";
@@ -47,7 +47,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container flex h-16 items-center justify-between gap-3">
         <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <SattvahMark size={34} />
+          <BrandMark size={34} />
           <span className="text-base">{siteConfig.name}</span>
         </Link>
 
