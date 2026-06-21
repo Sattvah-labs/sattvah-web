@@ -1,14 +1,25 @@
 import Link from "next/link";
 
+import { HamsaSwan } from "@/components/hamsa-swan";
 import { siteConfig } from "@/lib/site";
 
 const sections = [
   {
-    title: "Product",
+    title: "Sattvah",
     links: [
       { label: "Community", href: "/community" },
-      { label: "Experts", href: "/experts" },
-      { label: "About", href: "/about" },
+      { label: "For coaches", href: "/coaches" },
+      { label: "Mission", href: "/mission" },
+      { label: "Founder", href: "/founder" },
+    ],
+  },
+  {
+    title: "Sattvah Labs",
+    links: [
+      { label: "About Labs", href: "/labs" },
+      { label: "Press kit", href: "/press" },
+      { label: "Trust Center", href: "/trust" },
+      { label: "Crisis support", href: "/crisis" },
     ],
   },
   {
@@ -16,6 +27,7 @@ const sections = [
     links: [
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
+      { label: "Contact", href: "mailto:mano@sattvah.ai" },
     ],
   },
 ];
@@ -23,18 +35,18 @@ const sections = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/50 bg-background">
-      <div className="container py-12 grid gap-10 md:grid-cols-[1.4fr_repeat(2,1fr)]">
+      <div className="container py-12 grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div className="space-y-3 max-w-sm">
           <div className="flex items-center gap-2 font-semibold">
-            <span aria-hidden className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent text-accent-foreground">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3c-3.5 4.5-7 6.5-7 11a7 7 0 0 0 14 0c0-4.5-3.5-6.5-7-11z" />
-              </svg>
-            </span>
+            <HamsaSwan size={28} />
             {siteConfig.name}
           </div>
           <p className="text-sm text-muted-foreground">
-            A calmer place to feel heard. Built with care for the moments words are hard to find.
+            A calmer place to feel heard. Built with care for the moments
+            words are hard to find.
+          </p>
+          <p className="text-xs text-muted-foreground/80 pt-2">
+            Sattvah is a product of Sattvah Labs Pvt Ltd, India.
           </p>
         </div>
         {sections.map((s) => (
@@ -57,8 +69,11 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border/40">
         <div className="container py-5 flex flex-col-reverse gap-3 md:flex-row md:items-center md:justify-between text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Sattvah Labs. All rights reserved.</p>
-          <p>Powered by Sattvah Labs.</p>
+          <p>
+            (c) {new Date().getFullYear()} Sattvah Labs Private Limited. All
+            rights reserved.
+          </p>
+          <p>Made slowly, in India.</p>
         </div>
       </div>
     </footer>

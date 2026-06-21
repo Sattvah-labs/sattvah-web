@@ -1,99 +1,127 @@
-import { siteConfig } from "./site";
-
-export interface CommunityPost {
-  id: string;
-  authorName?: string;
-  authorHandle?: string;
-  authorAvatarUrl?: string | null;
-  title?: string;
-  body: string;
-  category?: string;
-  createdAt?: string;
-  reactionsCount?: number;
-  repliesCount?: number;
-  reactions?: Record<string, number>;
-  isAnonymous?: boolean;
-}
-
-export interface CommunityReply {
-  id: string;
-  authorName?: string;
-  authorAvatarUrl?: string | null;
-  body: string;
-  createdAt?: string;
-}
-
-export interface CommunityPostDetail extends CommunityPost {
-  replies?: CommunityReply[];
-}
-
-export interface Expert {
-  id: string;
-  name: string;
-  handle?: string;
-  avatarUrl?: string | null;
-  coverImageUrl?: string | null;
-  headline?: string;
-  bio?: string;
-  categories?: string[];
-  languages?: string[];
-  yearsExperience?: number;
-  pricePerSession?: number;
-  currency?: string;
-  ratingAverage?: number;
-  ratingCount?: number;
-  verified?: boolean;
-}
-
-interface FetchOptions {
-  revalidate?: number;
-}
-
 /**
- * Backend returns either an array or `{ items: [...] }`. Normalize.
+ * Thin API client for sattvah-web.
+ *
+ * Public reads hit /v1/public/community/* with no auth.
+ * Authed reads + every write attach the Cognito Id token from
+ * amazon-cognito-identity-js localStorage session.
  */
-function unwrap<T>(json: unknown, key: string): T[] {
-  if (Array.isArray(json)) return json as T[];
-  if (json && typeof json === "object") {
-    const obj = json as Record<string, unknown>;
-    if (Array.isArray(obj[key])) return obj[key] as T[];
-    if (Array.isArray(obj.items)) return obj.items as T[];
-    if (Array.isArray(obj.data)) return obj.data as T[];
+import { siteConfig } from "./site";
+import { getIdToken } from "./cognito";
+
+export type PublicPost = {
+  id: string;
+  authorId?: string;
+  authorName: string;
+  authorPersona?: string;
+  authorAvatarUrl?: string;
+  isAnonymous: boolean;
+  title: string;
+  body: string;
+  /** Optional hero image. When present, renders above the body excerpt
+   *  on feed cards and above the body on the post detail page. */
+  imageUrl?: string;
+  topic: string;
+  subTheme?: string;
+  tags: string[];
+  createdAt: string;
+  updatedAt?: string;
+  upvotes: number;
+  downvotes: number;
+  replyCount: number;
+};
+
+export type PublicReply = {
+  id: string;
+  postId: string;
+  authorId?: string;
+  authorName: string;
+  authorPersona?: string;
+  authorAvatarUrl?: string;
+  isAnonymous: boolean;
+  body: string;
+  createdAt: string;
+  updatedAt?: string;
+  upvotes: number;
+  downvotes: number;
+};
+
+export type PublicTopic = { id: string; label: string };
+
+async function publicGet<T>(path: string): Promise<T> {
+  const res = await fetch(`${siteConfig.apiBaseUrl}${path}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`GET ${path} → ${res.status}`);
+  return res.json() as Promise<T>;
+}
+
+async function authedFetch(path: string, init?: RequestInit): Promise<Response> {
+  const token = await getIdToken();
+  if (!token) throw new Error("Not signed in");
+  const headers = new Headers(init?.headers);
+  headers.set("Authorization", `Bearer ${token}`);
+  if (init?.body && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
   }
-  return [];
+  return fetch(`${siteConfig.apiBaseUrl}${path}`, { ...init, headers });
 }
 
-async function apiFetch<T>(path: string, opts: FetchOptions = {}): Promise<T | null> {
-  const url = `${siteConfig.apiBaseUrl}${path}`;
-  try {
-    const res = await fetch(url, {
-      next: { revalidate: opts.revalidate ?? 60 },
-      headers: { Accept: "application/json" },
-    });
-    if (!res.ok) return null;
-    return (await res.json()) as T;
-  } catch {
-    return null;
-  }
-}
+export const publicApi = {
+  listPosts: (topic?: string, limit?: number) =>
+    publicGet<{ items: PublicPost[]; nextCursor: string }>(
+      `/v1/public/community/posts?${topic ? `topic=${encodeURIComponent(topic)}&` : ""}${limit ? `limit=${limit}` : ""}`,
+    ),
+  getPost: (id: string) =>
+    publicGet<{ post: PublicPost; replies: PublicReply[] }>(
+      `/v1/public/community/posts/${encodeURIComponent(id)}`,
+    ),
+  listTopics: () =>
+    publicGet<{ items: PublicTopic[] }>(`/v1/public/community/categories`),
+  /** Similar posts = same topic, exclude the current one, take N. The
+   *  backend doesn't yet have a similarity endpoint, so this is a thin
+   *  filter on top of listPosts. Returns at most `limit` items. */
+  similarPosts: async (currentId: string, topic: string, limit = 3) => {
+    const { items } = await publicGet<{ items: PublicPost[]; nextCursor: string }>(
+      `/v1/public/community/posts?topic=${encodeURIComponent(topic)}&limit=${limit + 1}`,
+    );
+    return items.filter((p) => p.id !== currentId).slice(0, limit);
+  },
+};
 
-export async function getCommunityPosts(): Promise<CommunityPost[]> {
-  const json = await apiFetch<unknown>("/community/posts", { revalidate: 60 });
-  return unwrap<CommunityPost>(json, "posts");
-}
-
-export async function getCommunityPost(id: string): Promise<CommunityPostDetail | null> {
-  return apiFetch<CommunityPostDetail>(`/community/posts/${encodeURIComponent(id)}`, {
-    revalidate: 60,
-  });
-}
-
-export async function getExperts(category?: string): Promise<Expert[]> {
-  const qs = category ? `?category=${encodeURIComponent(category)}` : "";
-  const json = await apiFetch<unknown>(`/experts${qs}`, { revalidate: 120 });
-  return unwrap<Expert>(json, "experts");
-}
-
-export async function getExpert(id: string): Promise<Expert | null> {
-  return apiFetch<Expert>(`/experts/${encodeURIComponent(id)}`, { revalidate: 120 });
-}
+export const authedApi = {
+  me: () => authedFetch("/me").then((r) => r.json()),
+  votePost: (postId: string, value: 1 | -1) =>
+    authedFetch(`/community/posts/${encodeURIComponent(postId)}/vote`, {
+      method: "POST",
+      body: JSON.stringify({ value }),
+    }),
+  savePost: (postId: string) =>
+    authedFetch(`/community/saved/posts/${encodeURIComponent(postId)}`, {
+      method: "POST",
+    }),
+  unsavePost: (postId: string) =>
+    authedFetch(`/community/saved/posts/${encodeURIComponent(postId)}`, {
+      method: "DELETE",
+    }),
+  replyToPost: (postId: string, body: string, isAnonymous: boolean) =>
+    authedFetch(`/community/posts/${encodeURIComponent(postId)}/replies`, {
+      method: "POST",
+      body: JSON.stringify({ body, isAnonymous }),
+    }),
+  createPost: (
+    title: string,
+    body: string,
+    topic: string,
+    isAnonymous: boolean,
+  ) =>
+    authedFetch(`/community/posts`, {
+      method: "POST",
+      body: JSON.stringify({ title, body, topic, isAnonymous }),
+    }),
+  deletePost: (postId: string) =>
+    authedFetch(`/community/posts/${encodeURIComponent(postId)}`, {
+      method: "DELETE",
+    }),
+  followAuthor: (userId: string) =>
+    authedFetch(`/community/follow/users/${encodeURIComponent(userId)}`, {
+      method: "POST",
+    }),
+};
