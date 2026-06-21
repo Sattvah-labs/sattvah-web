@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { HamsaSwan } from "@/components/hamsa-swan";
+import { SattvahMark } from "@/components/sattvah-mark";
 import { siteConfig } from "@/lib/site";
 
 const sections = [
@@ -38,7 +38,7 @@ export function SiteFooter() {
       <div className="container py-12 grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div className="space-y-3 max-w-sm">
           <div className="flex items-center gap-2 font-semibold">
-            <HamsaSwan size={28} />
+            <SattvahMark size={28} />
             {siteConfig.name}
           </div>
           <p className="text-sm text-muted-foreground">
