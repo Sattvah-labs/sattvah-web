@@ -36,7 +36,7 @@ const FAQS: FAQ[] = [
   {
     id: "studio",
     q: "Where do I create and publish courses?",
-    a: "Studio is your creator workspace. Courses, chapters, and lessons all live there. Open the Studio tile from the coach dashboard, or jump straight to learn.sattvah.ai/instructor. Open Studio to manage what you teach.",
+    a: "Studio is your creator workspace. Courses, chapters, and lessons all live there. Open the Studio tile from the coach dashboard, or jump straight to studio.sattvah.ai/instructor. Open Studio to manage what you teach.",
   },
   {
     id: "plan-change",
