@@ -77,9 +77,19 @@ export function SiteHeader() {
           <ThemeToggle />
           {loading ? null : user ? (
             <>
-              <span className="hidden sm:inline text-sm text-muted-foreground">
-                {user.displayName || user.email}
+              <span
+                data-testid="site-header-welcome"
+                className="hidden sm:inline text-sm text-muted-foreground"
+              >
+                Welcome back, {user.displayName || user.email}
               </span>
+              <Link
+                href="/community"
+                data-testid="site-header-open-dashboard"
+                className={cn(buttonVariants({ variant: "accent", size: "sm" }))}
+              >
+                Open dashboard
+              </Link>
               <button
                 onClick={signOut}
                 className={cn(buttonVariants({ variant: "outline", size: "sm" }))}

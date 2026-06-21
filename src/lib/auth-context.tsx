@@ -15,6 +15,7 @@ import {
   getIdToken as getCognitoIdToken,
   signOut as cognitoSignOut,
 } from "@/lib/cognito";
+import { tryRestoreSession } from "@/lib/silentSSO";
 
 type AuthState = {
   user: AuthUser | null;
@@ -38,6 +39,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     (async () => {
       try {
+        // Marketing site: silent SSO runs in the background. We never
+        // block render on a redirect, so redirectOnMiss stays false. The
+        // restore covers two cases:
+        //   1. amazon-cognito-identity-js already has valid tokens, so
+        //      tryRestoreSession() is a no-op fast path.
+        //   2. The id token expired but the refresh token still works,
+        //      in which case we silently exchange and rehydrate.
+        // A miss simply leaves the header in its Sign in state.
+        await tryRestoreSession({ redirectOnMiss: false });
         await refresh();
       } finally {
         setLoading(false);
