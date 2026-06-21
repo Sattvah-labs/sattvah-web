@@ -49,7 +49,13 @@ export const metadata: Metadata = {
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
     ],
+    apple: [{ url: "/favicon.ico" }],
   },
+  // Linked once in <head> so iOS Safari + Android Chrome both pick the
+  // PWA manifest up. /talk is the canonical entry point but the
+  // manifest's scope covers the whole site so wa.me deep links into
+  // /talk also count as in-scope.
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {
