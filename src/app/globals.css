@@ -40,7 +40,7 @@
   }
 
   .dark {
-    --background: 215 28% 9%;
+    --background: 258 40% 4%;
     --foreground: 36 33% 96%;
 
     --card: 215 28% 12%;
@@ -78,6 +78,17 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
   }
+  /* Dark-mode universal background, deep violet-black base with soft
+     violet / magenta / coral glows. background-attachment: fixed so
+     the aurora stays in the viewport on long-scroll pages. */
+  .dark body {
+    background-color: hsl(258 40% 4%);
+    background-image:
+      radial-gradient(75% 65% at 12% -8%, hsl(258 80% 50% / 0.30) 0%, transparent 60%),
+      radial-gradient(65% 55% at 92% 22%, hsl(298 70% 50% / 0.25) 0%, transparent 60%),
+      radial-gradient(78% 60% at 50% 110%, hsl(343 75% 50% / 0.22) 0%, transparent 65%);
+    background-attachment: fixed;
+  }
   h1, h2, h3, h4 {
     @apply tracking-tight;
   }
@@ -113,6 +124,18 @@
   .bg-aurora-animated {
     background-size: 140% 140%, 140% 140%, 100% 100%;
     animation: aurora-shift 24s ease-in-out infinite;
+  }
+
+  /* Per-section variant of the universal dark aurora — apply when a
+     section needs the gradient repeated locally (e.g. a hero card on
+     a page that overrides body bg). Body already has this baked in
+     for the dark theme via the .dark body rule above. */
+  .bg-aurora-violet {
+    background-color: hsl(258 40% 4%);
+    background-image:
+      radial-gradient(75% 65% at 12% -8%, hsl(258 80% 50% / 0.30) 0%, transparent 60%),
+      radial-gradient(65% 55% at 92% 22%, hsl(298 70% 50% / 0.25) 0%, transparent 60%),
+      radial-gradient(78% 60% at 50% 110%, hsl(343 75% 50% / 0.22) 0%, transparent 65%);
   }
 
   /* Section dividers, deep slate band for the "built for scale" tech
@@ -157,5 +180,78 @@
   .stat-num {
     font-feature-settings: "tnum" 1, "ss01" 1;
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Word-by-word reveal — each .w span fades + lifts + unblurs in
+     sequence under the parent's .in class. Per-word delay is set
+     inline via React. */
+  .word-reveal .w {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+    transition:
+      opacity 900ms cubic-bezier(.22,.61,.36,1),
+      transform 900ms cubic-bezier(.22,.61,.36,1),
+      filter 900ms cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform, filter;
+  }
+  .word-reveal.in .w {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Kinetic mask reveal — image-like content opens from inside-out
+     via clip-path inset + blur clear. Default rounded radius lives
+     in --km-radius (set by the React wrapper). */
+  .kinetic-mask {
+    clip-path: inset(45% 45% 45% 45% round var(--km-radius, 24px));
+    filter: blur(4px) saturate(0.85);
+    transition:
+      clip-path 1400ms cubic-bezier(.22,.61,.36,1),
+      filter 1400ms cubic-bezier(.22,.61,.36,1);
+    will-change: clip-path, filter;
+  }
+  .kinetic-mask.in {
+    clip-path: inset(0% 0% 0% 0% round var(--km-radius, 24px));
+    filter: blur(0) saturate(1);
+  }
+
+  /* Moment card hover — gradient accent line draws under the card
+     and the arrow eases in from the left. Pure CSS, zero JS cost. */
+  .moment-card { position: relative; }
+  .moment-card .accent-line {
+    position: absolute;
+    left: 32px; right: 32px; bottom: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, hsl(258 90% 76%), hsl(343 84% 72%));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 900ms cubic-bezier(.22,.61,.36,1);
+    border-radius: 1px;
+    pointer-events: none;
+  }
+  .moment-card:hover .accent-line { transform: scaleX(1); }
+  .moment-card .accent-arrow {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 600ms ease, transform 600ms cubic-bezier(.22,.61,.36,1);
+  }
+  .moment-card:hover .accent-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Reduced motion — skip all of the above, snap to final state. */
+  @media (prefers-reduced-motion: reduce) {
+    .word-reveal .w,
+    .kinetic-mask,
+    .moment-card .accent-line,
+    .moment-card .accent-arrow {
+      transition: none !important;
+      animation: none !important;
+    }
+    .word-reveal .w { opacity: 1; transform: none; filter: none; }
+    .kinetic-mask { clip-path: inset(0% 0% 0% 0% round var(--km-radius, 24px)); filter: none; }
   }
 }

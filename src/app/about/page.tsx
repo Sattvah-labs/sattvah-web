@@ -68,6 +68,15 @@ export default function AboutPage() {
           Browse the community
         </Link>
       </div>
+
+      <div className="mt-20 pt-10 border-t border-border/30 text-center">
+        <p className="font-serif italic text-2xl md:text-3xl tracking-tight">
+          Built by one person. No funding.
+        </p>
+        <p className="mt-3 italic text-sm text-muted-foreground">
+          covering the surface area of a friend at 2 AM, a quiet community, mood logs, and a real expert
+        </p>
+      </div>
     </div>
   );
 }

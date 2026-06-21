@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { siteConfig } from "@/lib/site";
+import { AuthProvider } from "@/lib/auth-context";
 
 import "./globals.css";
 
@@ -43,15 +44,27 @@ export const metadata: Metadata = {
     creator: siteConfig.twitter,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBF8F4",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FBF8F4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B0717" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
+
+// Runs synchronously in <head> BEFORE the body paints, so the theme
+// flip happens without the white flash on dark-mode reload. Default
+// theme is dark — light is opt-in via the header toggle (persisted in
+// localStorage as `sattvah-theme`).
+const themeInitScript = `(function(){try{var t=localStorage.getItem('sattvah-theme');if(t!=='light'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 export default function RootLayout({
   children,
@@ -59,11 +72,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen flex flex-col font-sans">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+    <html lang="en" className={`${inter.variable} dark`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground">
+        <AuthProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </AuthProvider>
       </body>
     </html>
   );
