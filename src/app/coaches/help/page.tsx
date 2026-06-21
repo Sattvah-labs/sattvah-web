@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Coach Help",
   description:
-    "Operational help for Sattvah coaches: payouts, scheduling, broadcasts, plan changes, and support.",
+    "Operational help for Sattvah coaches: payouts, scheduling, broadcasts, Studio (course creation), plan changes, and support.",
 };
 
 // Coach-facing FAQ. Lives at /coaches/help so we can run a separate
@@ -32,6 +32,11 @@ const FAQS: FAQ[] = [
     id: "broadcasts",
     q: "How do I send a broadcast to my clients?",
     a: "Open the Community tab, tap the pen icon, choose Broadcast. The post goes to your community feed and triggers WA notifications for opted-in clients.",
+  },
+  {
+    id: "studio",
+    q: "Where do I create and publish courses?",
+    a: "Studio is your creator workspace. Courses, chapters, and lessons all live there. Open the Studio tile from the coach dashboard, or jump straight to learn.sattvah.ai/instructor. Open Studio to manage what you teach.",
   },
   {
     id: "plan-change",
