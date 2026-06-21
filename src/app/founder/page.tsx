@@ -47,7 +47,7 @@ export default function FounderPage() {
           <li className="flex gap-3"><span className="text-accent shrink-0 leading-[1.85]">·</span><span>Most heavy days are not a crisis. They&rsquo;re a tuesday. A tuesday still deserves company.</span></li>
           <li className="flex gap-3"><span className="text-accent shrink-0 leading-[1.85]">·</span><span>Anonymous, careful, slow. Not gamified. Not addictive. Not productive.</span></li>
           <li className="flex gap-3"><span className="text-accent shrink-0 leading-[1.85]">·</span><span>If a person, not a chat, is what you need, we should help you find that too.</span></li>
-          <li className="flex gap-3"><span className="text-accent shrink-0 leading-[1.85]">·</span><span>India deserves this in our languages, our pricing, our cultural context &mdash; not as an afterthought to a US-shaped product.</span></li>
+          <li className="flex gap-3"><span className="text-accent shrink-0 leading-[1.85]">·</span><span>India deserves this in our languages, our pricing, our cultural context, not as an afterthought to a US-shaped product.</span></li>
         </ul>
 
         <h2 className="mt-12 mb-4 text-xl md:text-2xl font-semibold tracking-tight text-foreground">

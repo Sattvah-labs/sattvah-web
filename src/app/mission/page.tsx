@@ -56,11 +56,11 @@ export default function MissionPage() {
           bring this, if it&rsquo;s built right and built here.
         </p>
         <p className="text-pretty mb-7">
-          Indian languages are not an afterthought &mdash; they&rsquo;re on
+          Indian languages are not an afterthought. They&rsquo;re on
           our shipping roadmap, not our backlog. We price in rupees. We
-          study the small everyday rituals that make Indian life feel held
-          &mdash; chai with mom, a long walk, a call you didn&rsquo;t plan
-          &mdash; and design Sattvah to sit beside them, not replace them.
+          study the small everyday rituals that make Indian life feel
+          held, chai with mom, a long walk, a call you didn&rsquo;t plan,
+          and design Sattvah to sit beside them, not replace them.
         </p>
 
         <h2 className="mt-12 mb-4 text-xl md:text-2xl font-semibold tracking-tight text-foreground">

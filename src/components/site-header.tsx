@@ -15,12 +15,14 @@ import { cn } from "@/lib/utils";
 // (e.g. /manifesto/ is a hand-authored HTML page under /public/manifesto).
 // Direct /index.html href works in both `next dev` and the exported S3
 // build — next dev doesn't resolve directory-index lookups from /public.
-const nav = [
+type NavItem = { label: string; href: string; external?: boolean };
+
+const nav: NavItem[] = [
   { label: "Community", href: "/community" },
-  { label: "Founder", href: "/founder" },
+  { label: "For coaches", href: "/coaches" },
   { label: "Mission", href: "/mission" },
-  { label: "Manifesto", href: "/manifesto/index.html", external: true },
-  { label: "About", href: "/about" },
+  { label: "Labs", href: "/labs" },
+  { label: "Trust", href: "/trust" },
 ];
 
 const VISITOR_KEY = "sattvah-visited";

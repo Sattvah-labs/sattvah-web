@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { CookieConsent } from "@/components/cookie-consent";
 import { siteConfig } from "@/lib/site";
 import { AuthProvider } from "@/lib/auth-context";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />
+          <CookieConsent />
         </AuthProvider>
       </body>
     </html>

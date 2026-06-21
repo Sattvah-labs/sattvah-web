@@ -105,7 +105,7 @@ function SignUpForm() {
               required
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              placeholder="A name or initial — pick anything"
+              placeholder="A name or initial, pick anything"
               className="mt-1.5 w-full rounded-xl border border-border bg-background h-11 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
             />
           </div>
