@@ -27,6 +27,10 @@ function SignUpForm() {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [code, setCode] = useState("");
+  // Cognito generates the username as u_<hex>; we capture it from the
+  // signUp result so confirm + resend can target the right subject
+  // (email alias does not resolve while the user is UNCONFIRMED).
+  const [signupUsername, setSignupUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -36,11 +40,12 @@ function SignUpForm() {
     setError(null);
     setLoading(true);
     try {
-      await signUp({
+      const result = await signUp({
         email: email.trim(),
         password,
         displayName: displayName.trim(),
       });
+      setSignupUsername(result.username);
       setStep("confirm");
       setInfo("We sent a 6-digit code to your email.");
     } catch (err) {
@@ -55,7 +60,7 @@ function SignUpForm() {
     setError(null);
     setLoading(true);
     try {
-      await confirmSignUp(email.trim(), code.trim());
+      await confirmSignUp(signupUsername, code.trim());
       await signIn(email.trim(), password);
       await auth.refresh();
       router.replace(next);
@@ -70,7 +75,7 @@ function SignUpForm() {
     setError(null);
     setInfo(null);
     try {
-      await resendConfirmationCode(email.trim());
+      await resendConfirmationCode(signupUsername);
       setInfo("A fresh code is on its way.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not resend");

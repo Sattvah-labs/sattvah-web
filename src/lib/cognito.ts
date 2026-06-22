@@ -105,7 +105,7 @@ function generateCognitoUsername(): string {
   );
 }
 
-export function signUp(input: SignUpInput): Promise<{ userSub: string }> {
+export function signUp(input: SignUpInput): Promise<{ userSub: string; username: string }> {
   return new Promise((resolve, reject) => {
     const attrs: CognitoUserAttribute[] = [
       new CognitoUserAttribute({ Name: "email", Value: input.email }),
@@ -116,14 +116,22 @@ export function signUp(input: SignUpInput): Promise<{ userSub: string }> {
     const username = generateCognitoUsername();
     getPool().signUp(username, input.password, attrs, [], (err, result) => {
       if (err || !result) return reject(err || new Error("signUp returned no result"));
-      resolve({ userSub: result.userSub });
+      resolve({ userSub: result.userSub, username });
     });
   });
 }
 
-export function confirmSignUp(email: string, code: string): Promise<void> {
+// confirmSignUp + resendConfirmationCode MUST be called with the
+// generated Cognito Username (u_<hex>), NOT the email. The pool uses
+// email as an ALIAS attribute, which only resolves after the user is
+// CONFIRMED. During the confirmation step the alias is not yet active,
+// so passing email here causes Cognito to return "User does not exist"
+// for resend and to validate the OTP against the wrong subject for
+// confirm. The signup screen stores the generated username from
+// signUp()'s result and passes it back here.
+export function confirmSignUp(username: string, code: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    const user = new CognitoUser({ Username: email, Pool: getPool() });
+    const user = new CognitoUser({ Username: username, Pool: getPool() });
     user.confirmRegistration(code, true, (err) => {
       if (err) return reject(err);
       resolve();
@@ -131,9 +139,9 @@ export function confirmSignUp(email: string, code: string): Promise<void> {
   });
 }
 
-export function resendConfirmationCode(email: string): Promise<void> {
+export function resendConfirmationCode(username: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    const user = new CognitoUser({ Username: email, Pool: getPool() });
+    const user = new CognitoUser({ Username: username, Pool: getPool() });
     user.resendConfirmationCode((err) => {
       if (err) return reject(err);
       resolve();
