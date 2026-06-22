@@ -33,7 +33,7 @@ export const DEFAULT_TIERS: PricingTier[] = [
       "Sattvah AI co-pilot included",
       "Weekly payout via Razorpay Route",
     ],
-    cta: { label: "Start free", href: "https://admin.sattvah.ai/signup?plan=free" },
+    cta: { label: "Start free", href: "/signup?intent=coach&plan=free" },
   },
   {
     name: "Sattvah Pro",
@@ -49,7 +49,7 @@ export const DEFAULT_TIERS: PricingTier[] = [
       "Coach Brief: weekly client summaries",
       "Priority support",
     ],
-    cta: { label: "Choose Pro", href: "https://admin.sattvah.ai/signup?plan=pro" },
+    cta: { label: "Choose Pro", href: "/signup?intent=coach&plan=pro" },
     featured: true,
   },
   {
@@ -66,7 +66,7 @@ export const DEFAULT_TIERS: PricingTier[] = [
       "Quarterly strategy call with Sattvah Labs",
       "Dedicated success manager",
     ],
-    cta: { label: "Choose Growth", href: "https://admin.sattvah.ai/signup?plan=growth" },
+    cta: { label: "Choose Growth", href: "/signup?intent=coach&plan=growth" },
   },
 ];
 

@@ -13,7 +13,13 @@ type Step = "register" | "confirm";
 function SignUpForm() {
   const router = useRouter();
   const search = useSearchParams();
-  const next = search.get("next") || "/community";
+  // Coach prospects arrive from /coaches via ?intent=coach and need to
+  // land on /start-tenant rather than the consumer /community feed
+  // after they confirm. An explicit ?next= still wins so other surfaces
+  // (deep links, share cards) can override.
+  const intent = search.get("intent");
+  const isCoachIntent = intent === "coach";
+  const next = search.get("next") || (isCoachIntent ? "/start-tenant" : "/community");
   const auth = useAuth();
 
   const [step, setStep] = useState<Step>("register");
@@ -75,11 +81,17 @@ function SignUpForm() {
     <div className="container max-w-md py-16 md:py-24">
       <div className="text-center mb-8">
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          {step === "register" ? "Make a quiet space yours." : "Check your email."}
+          {step === "register"
+            ? isCoachIntent
+              ? "Start your wellness space."
+              : "Make a quiet space yours."
+            : "Check your email."}
         </h1>
         <p className="mt-3 text-foreground/65">
           {step === "register"
-            ? "Anonymous by default. We never show your real name unless you tell us to."
+            ? isCoachIntent
+              ? "Create your account. You can set up your space right after."
+              : "Anonymous by default. We never show your real name unless you tell us to."
             : "Enter the 6-digit code we just sent you."}
         </p>
       </div>

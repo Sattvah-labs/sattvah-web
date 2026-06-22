@@ -83,7 +83,7 @@ export default function CoachesPage() {
         highlight="wellness"
         sub="Community, memory, payments, AI co-pilot, WhatsApp. One app for you and your clients. From Rs 0 a month."
         ctas={[
-          { label: "Start free", href: "https://admin.sattvah.ai/signup" },
+          { label: "Start free", href: "/signup?intent=coach" },
           { label: "See pricing", href: "#pricing" },
         ]}
         fine="No credit card. No setup fee. Twelve percent commission until you outgrow it."
@@ -377,7 +377,7 @@ function ClosingCta() {
       <Reveal delay={0.2}>
         <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="https://admin.sattvah.ai/signup"
+            href="/signup?intent=coach"
             className={cn(
               buttonVariants({ variant: "default", size: "lg" }),
               "px-8 h-12 text-base shadow-[0_10px_40px_-12px_hsl(36_92%_58%/0.55)] hover:shadow-[0_14px_50px_-12px_hsl(36_92%_58%/0.75)]",
