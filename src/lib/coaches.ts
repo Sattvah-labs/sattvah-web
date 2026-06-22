@@ -218,32 +218,26 @@ export function findMockCoach(handle: string): CoachProfile | undefined {
 }
 
 /**
- * Fetches a coach profile by handle. Tries the live API first, then
- * falls back to the bundled mocks. Returns null only when both fail.
+ * Resolves a coach profile by handle from the bundled mock fixtures.
  *
  * Called at build time by /c/[handle]/page.tsx so the static export
  * ships every coach as a pre-rendered HTML file.
+ *
+ * Historically this function also tried `fetch(api.sattvah.ai/c/<handle>,
+ * { cache: "no-store" })` first and fell back to mocks. With
+ * `output: "export"`, a `cache: "no-store"` fetch silently opts the
+ * route out of static generation: Next.js emits the page.js but no
+ * .html, CloudFront then serves the root index.html for /c/<handle>,
+ * and unknown handles never 404 because nothing landed under /c/ at all
+ * (regression observed 2026-06-22).
+ *
+ * The launch directory of coaches lives in MOCK_COACHES (section 6 of
+ * sattvah-launch-data.md). We bake those at build, full stop. When the
+ * live API replaces the seed list, swap this back to a build-time
+ * `generateStaticParams` that reads the API with `cache: "force-cache"`
+ * so the route stays statically exportable.
  */
 export async function fetchCoach(handle: string): Promise<CoachProfile | null> {
-  try {
-    const apiBase =
-      process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.sattvah.ai";
-    const res = await fetch(`${apiBase}/c/${encodeURIComponent(handle)}`, {
-      // Build-time fetch, no cache needed.
-      cache: "no-store",
-    });
-    if (res.ok) {
-      const data = (await res.json()) as Partial<CoachProfile>;
-      if (data && data.handle) {
-        return {
-          ...(data as CoachProfile),
-          parentLabsAttribution: data.parentLabsAttribution ?? true,
-        };
-      }
-    }
-  } catch {
-    // ignore, fall back to mocks
-  }
   return findMockCoach(handle) ?? null;
 }
 
