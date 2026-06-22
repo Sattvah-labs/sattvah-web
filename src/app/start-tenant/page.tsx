@@ -174,7 +174,7 @@ export default function StartTenantPage() {
     <div className="container max-w-xl py-16 md:py-24">
       <div className="text-center mb-8">
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-          Set up your wellness space
+          Set up your space
         </h1>
         <p className="mt-3 text-foreground/65">
           A few details and we&rsquo;ll get your space ready to share.

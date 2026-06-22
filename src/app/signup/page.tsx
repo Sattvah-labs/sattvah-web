@@ -83,7 +83,7 @@ function SignUpForm() {
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
           {step === "register"
             ? isCoachIntent
-              ? "Start your wellness space."
+              ? "Start your space."
               : "Make a quiet space yours."
             : "Check your email."}
         </h1>
