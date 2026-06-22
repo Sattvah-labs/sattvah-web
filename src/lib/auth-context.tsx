@@ -13,7 +13,7 @@ import {
   AuthUser,
   getAuthUser,
   getIdToken as getCognitoIdToken,
-  signOut as cognitoSignOut,
+  signOutAndRedirect,
 } from "@/lib/cognito";
 
 type AuthState = {
@@ -51,8 +51,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       loading,
       refresh,
       signOut: () => {
-        cognitoSignOut();
-        setUser(null);
+        // Delegate to the shared lib. signOutAndRedirect() clears
+        // local tokens then hard-navigates to Cognito's /logout. Do
+        // NOT setUser(null) here, it races the full-page navigation.
+        signOutAndRedirect();
       },
       getIdToken: getCognitoIdToken,
     }),

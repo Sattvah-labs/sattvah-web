@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { confirmSignUp, resendConfirmationCode, signIn, signUp } from "@/lib/cognito";
+import { loadSignupResume } from "@/lib/sattvah-auth";
 import { useAuth } from "@/lib/auth-context";
 import { FederatedButtons } from "@/components/federated-buttons";
 
@@ -34,6 +35,20 @@ function SignUpForm() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Audit B18: if the page refreshes mid-OTP, the signupUsername is
+  // lost and the user is locked out of verify until the Cognito GC
+  // sweeps the unconfirmed record after 7 days. Persist via the lib
+  // (30-min TTL sessionStorage) and rehydrate on mount.
+  useEffect(() => {
+    const resume = loadSignupResume();
+    if (resume) {
+      setSignupUsername(resume.username);
+      setEmail(resume.email);
+      setStep("confirm");
+      setInfo("We sent a 6-digit code to your email. Enter it to finish.");
+    }
+  }, []);
 
   async function submitRegister(e: React.FormEvent) {
     e.preventDefault();

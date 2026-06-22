@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { signInWithApple, signInWithGoogle } from "@/lib/cognito";
+import { isAppleEnabled } from "@/lib/sattvah-auth";
 
 /**
  * Apple + Google sign-in buttons. Both redirect the browser to the
@@ -18,6 +19,9 @@ import { signInWithApple, signInWithGoogle } from "@/lib/cognito";
 export function FederatedButtons({ next }: { next: string }) {
   const [busy, setBusy] = useState<"apple" | "google" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Audit B14: hide the Apple button when the IdP is not registered in
+  // the Cognito pool. Toggle via NEXT_PUBLIC_APPLE_ENABLED=true.
+  const appleEnabled = isAppleEnabled();
 
   async function go(provider: "apple" | "google") {
     setError(null);
@@ -35,19 +39,23 @@ export function FederatedButtons({ next }: { next: string }) {
 
   return (
     <div className="space-y-3">
-      {/* Apple — solid black pill with the Apple logo. Matches HIG
+      {/* Apple, solid black pill with the Apple logo. Matches HIG
           requirements: 8pt+ corner radius (we use the form's 9999px),
-          left-aligned logo + centered label, black fill on light mode. */}
-      <button
-        type="button"
-        onClick={() => go("apple")}
-        disabled={busy !== null}
-        aria-label="Continue with Apple"
-        className="w-full rounded-full bg-black text-white h-11 text-sm font-medium flex items-center justify-center gap-2 hover:bg-black/85 transition-colors disabled:opacity-60"
-      >
-        <AppleLogo className="h-4 w-4" />
-        {busy === "apple" ? "Opening Apple..." : "Continue with Apple"}
-      </button>
+          left-aligned logo + centered label, black fill on light mode.
+          Hidden when the Apple IdP is not registered in the Cognito
+          pool (audit B14). */}
+      {appleEnabled ? (
+        <button
+          type="button"
+          onClick={() => go("apple")}
+          disabled={busy !== null}
+          aria-label="Continue with Apple"
+          className="w-full rounded-full bg-black text-white h-11 text-sm font-medium flex items-center justify-center gap-2 hover:bg-black/85 transition-colors disabled:opacity-60"
+        >
+          <AppleLogo className="h-4 w-4" />
+          {busy === "apple" ? "Opening Apple..." : "Continue with Apple"}
+        </button>
+      ) : null}
       {/* Google — white pill with a subtle border. Matches Google's
           identity guidelines for the "neutral" button variant. */}
       <button
