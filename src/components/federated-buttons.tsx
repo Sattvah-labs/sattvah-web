@@ -55,7 +55,7 @@ export function FederatedButtons({ next }: { next: string }) {
         onClick={() => go("google")}
         disabled={busy !== null}
         aria-label="Continue with Google"
-        className="w-full rounded-full bg-white text-foreground border border-border h-11 text-sm font-medium flex items-center justify-center gap-2 hover:bg-foreground/[0.03] transition-colors disabled:opacity-60"
+        className="w-full rounded-full bg-white text-zinc-900 border border-zinc-200 h-11 text-sm font-medium flex items-center justify-center gap-2 hover:bg-zinc-50 transition-colors disabled:opacity-60"
       >
         <GoogleLogo className="h-4 w-4" />
         {busy === "google" ? "Opening Google..." : "Continue with Google"}

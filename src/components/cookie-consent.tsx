@@ -70,13 +70,13 @@ export function CookieConsent() {
         <div className="mt-4 flex flex-col sm:flex-row gap-2">
           <button
             onClick={() => record("accept")}
-            className="inline-flex h-10 px-5 rounded-full bg-foreground text-background text-sm font-medium hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center h-10 px-5 rounded-full bg-white text-zinc-900 text-sm font-medium hover:bg-zinc-100 transition-colors"
           >
             Got it
           </button>
           <button
             onClick={() => record("decline")}
-            className="inline-flex h-10 px-5 rounded-full border border-border text-sm font-medium hover:bg-secondary transition-colors"
+            className="inline-flex items-center justify-center h-10 px-5 rounded-full border border-white/30 text-white text-sm font-medium hover:bg-white/10 transition-colors"
           >
             Decline non-essential
           </button>
