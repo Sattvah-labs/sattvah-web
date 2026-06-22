@@ -90,6 +90,21 @@ export type SignUpInput = {
   displayName: string;
 };
 
+function generateCognitoUsername(): string {
+  // Pool is configured with email-alias, so the Username MUST NOT be in
+  // email format. Generate a u_<hex> shape that matches the existing
+  // demo / platform admin convention. Sign-in still works by email
+  // because email is registered as an alias attribute.
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return (
+    "u_" +
+    Array.from(bytes)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("")
+  );
+}
+
 export function signUp(input: SignUpInput): Promise<{ userSub: string }> {
   return new Promise((resolve, reject) => {
     const attrs: CognitoUserAttribute[] = [
@@ -98,7 +113,8 @@ export function signUp(input: SignUpInput): Promise<{ userSub: string }> {
       new CognitoUserAttribute({ Name: "family_name", Value: "." }),
       new CognitoUserAttribute({ Name: "custom:tenantId", Value: "sattvah" }),
     ];
-    getPool().signUp(input.email, input.password, attrs, [], (err, result) => {
+    const username = generateCognitoUsername();
+    getPool().signUp(username, input.password, attrs, [], (err, result) => {
       if (err || !result) return reject(err || new Error("signUp returned no result"));
       resolve({ userSub: result.userSub });
     });
