@@ -11,17 +11,17 @@ import { useAuth } from "@/lib/auth-context";
 import { cn } from "@/lib/utils";
 
 // `external: true` means render as a plain <a> instead of <Link>. Use it
-// for routes that live as static files outside the Next.js route tree
-// (e.g. /manifesto/ is a hand-authored HTML page under /public/manifesto).
-// Direct /index.html href works in both `next dev` and the exported S3
-// build — next dev doesn't resolve directory-index lookups from /public.
+// for routes that live outside the parent-brand Next.js tree (Forge SPA
+// at forge.sattvah.ai, the consumer wellness site at wells.sattvah.ai,
+// hand-authored HTML under /public/manifesto).
 type NavItem = { label: string; href: string; external?: boolean };
 
 const nav: NavItem[] = [
-  { label: "Community", href: "/community" },
-  { label: "For coaches", href: "/coaches" },
-  { label: "Mission", href: "/mission" },
+  { label: "Products", href: "/#products" },
+  { label: "Forge", href: siteConfig.forgeUrl, external: true },
+  { label: "Sattvah", href: siteConfig.wellsUrl, external: true },
   { label: "Labs", href: "/labs" },
+  { label: "Press", href: "/press" },
   { label: "Trust", href: "/trust" },
 ];
 
@@ -31,15 +31,14 @@ export function SiteHeader() {
   const { user, signOut, loading } = useAuth();
   const [isReturning, setIsReturning] = useState(false);
 
-  // Nudge #5 — returning visitor swap. Mark on first paint so the next
-  // load shows the warmer CTA. Cheap localStorage write, no PII.
+  // Returning-visitor nudge. Cheap localStorage write, no PII.
   useEffect(() => {
     try {
       const marked = localStorage.getItem(VISITOR_KEY);
       if (marked === "1") setIsReturning(true);
       else localStorage.setItem(VISITOR_KEY, "1");
     } catch {
-      /* private mode — silently skip */
+      /* private mode, silently skip */
     }
   }, []);
 
@@ -89,24 +88,24 @@ export function SiteHeader() {
             </>
           ) : isReturning ? (
             <Link
-              href="/signin"
+              href="/contact"
               className={cn(buttonVariants({ variant: "accent", size: "sm" }))}
             >
-              Welcome back, sign in
+              Talk to us
             </Link>
           ) : (
             <>
               <Link
-                href="/signin"
+                href="/labs"
                 className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
               >
-                Sign in
+                About
               </Link>
               <Link
-                href="/signup"
+                href="/contact"
                 className={cn(buttonVariants({ variant: "accent", size: "sm" }))}
               >
-                Sign up
+                Talk to us
               </Link>
             </>
           )}

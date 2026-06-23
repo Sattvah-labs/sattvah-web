@@ -3,31 +3,40 @@ import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
 import { siteConfig } from "@/lib/site";
 
-const sections = [
+// Parent corporate footer. Sattvah Labs is the platform brand and the
+// company. Doors out to the tenant + sub-brand surfaces (Sattvah at
+// wells.sattvah.ai, Forge at forge.sattvah.ai) sit in their own column.
+
+type FooterLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+const sections: { title: string; links: FooterLink[] }[] = [
   {
-    title: "Sattvah",
-    links: [
-      { label: "Community", href: "/community" },
-      { label: "For coaches", href: "/coaches" },
-      { label: "Mission", href: "/mission" },
-      { label: "Founder", href: "/founder" },
-    ],
-  },
-  {
-    title: "Sattvah Labs",
+    title: "Company",
     links: [
       { label: "About Labs", href: "/labs" },
       { label: "Press kit", href: "/press" },
-      { label: "Trust Center", href: "/trust" },
-      { label: "Crisis support", href: "/crisis" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
-    title: "Legal",
+    title: "Products",
     links: [
+      { label: "Forge (creator platform)", href: "/products/forge" },
+      { label: "Sattvah (wellness app)", href: "/products/sattvah" },
+      { label: "Sattvah for coaches", href: `${siteConfig.wellsUrl}/coaches`, external: true },
+    ],
+  },
+  {
+    title: "Trust + Legal",
+    links: [
+      { label: "Trust Center", href: "/trust" },
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
-      { label: "Contact", href: "mailto:mano@sattvah.ai" },
     ],
   },
 ];
@@ -42,27 +51,38 @@ export function SiteFooter() {
             {siteConfig.name}
           </div>
           <p className="text-sm text-muted-foreground">
-            A calmer place to feel heard. Built with care for the moments
-            words are hard to find.
+            Calm software for India. The operating layer for wellness and
+            creators, plus the apps that sit on top.
           </p>
           <p className="text-xs text-muted-foreground/80 pt-2">
-            Sattvah is a product of Sattvah Labs Pvt Ltd, India.
+            Sattvah Labs Private Limited. Registered in Bangalore, Karnataka.
           </p>
         </div>
         {sections.map((s) => (
           <div key={s.title} className="space-y-3">
             <h4 className="text-sm font-semibold text-foreground">{s.title}</h4>
             <ul className="space-y-2">
-              {s.links.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+              {s.links.map((l) =>
+                l.external ? (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         ))}
